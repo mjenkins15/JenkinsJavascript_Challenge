@@ -4,8 +4,11 @@ var tableData = data;
 // Select the button
 var tbody = d3.select("tbody");
 
+function buildTable(dataset) {
+
+
 // Step 1: Loop Through `data` and console.log each UFO object
-data.forEach(function(ufoSightings) {
+dataset.forEach(function(ufoSightings) {
     console.log(ufoSightings);
  
 // Step 2:  Use d3 to append one table row `tr` for each UFO sighting object
@@ -23,6 +26,7 @@ data.forEach(function(ufoSightings) {
     cell.text(value);
 });
 });
+};
 
  //Create a function to add an event listener to the table
 
@@ -39,6 +43,20 @@ data.forEach(function(ufoSightings) {
     // Grab the datetime value from the filter
     var date = d3.select("#datetime").property("value");
     console.log(date);
+    
+    var city = d3.select("#city").property("value");
+    console.log(city);
+
+    var state = d3.select("#state").property("value");
+    console.log(state);
+
+    var country = d3.select("#country").property("value");
+    console.log(country);
+
+    var shape = d3.select("#shape").property("value");
+    console.log(shape);
+
+
 
     let filteredData = tableData;
     // Check to see if a date was entered and filter the
@@ -47,8 +65,26 @@ data.forEach(function(ufoSightings) {
         // Apply `filter` to the table data to only keep the
         // rows where the `datetime` value matches the filter value
         filteredData = filteredData.filter(row => row.datetime === date);
-        console.log(filteredData);
-    };
+        //console.log(filteredData);
+    }
+    if (city) {
+        filteredData = filteredData.filter(row => row.city === city);
+        //console.log(filteredData);
+    }
+    if (state) {
+        filteredData = filteredData.filter(row => row.state === state);
+        //console.log(filteredData);
+    }   
+    if (country) {
+        filteredData = filteredData.filter(row => row.country === country);
+        //console.log(filteredData);
+    }   
+    if (shape) {
+        filteredData = filteredData.filter(row => row.shape === shape);
+        //console.log(filteredData);
+    }   
+    
+    
 
     //write code to clear the table and repopulate the table with filtered data
         
@@ -56,11 +92,13 @@ data.forEach(function(ufoSightings) {
     tbody.html("");
 
     // Repopulate table with filtered data
-    tbody.append("tbody").text("filteredData: date}");
+   buildTable(filteredData);
 
     
 };
     button.on("click", handleClick);
+
+    buildTable(tableData);
     
 
    
